@@ -1,0 +1,83 @@
+&GLOBAL
+  PROJECT zundel
+  PRINT_LEVEL LOW
+  RUN_TYPE MD
+&END GLOBAL
+
+&MOTION
+  &MD
+    STEPS 50000
+    TIMESTEP [fs] 0.5
+    ENSEMBLE NVT
+    &THERMOSTAT
+      REGION MASSIVE
+      TYPE CSVR
+      &CSVR
+        TIMECON [fs] 200
+      &END CSVR
+    &END THERMOSTAT
+  &END MD
+  &PRINT
+    &TRAJECTORY
+      &EACH
+        MD 5
+      &END EACH
+    &END TRAJECTORY
+    &VELOCITIES
+      &EACH
+        MD 5
+      &END EACH
+    &END VELOCITIES
+    &FORCES
+      &EACH
+        MD 5
+      &END EACH
+    &END FORCES
+    &RESTART OFF
+    &END RESTART
+    &RESTART_HISTORY OFF
+    &END RESTART_HISTORY
+  &END PRINT
+&END MOTION
+
+&FORCE_EVAL
+  &DFT
+    CHARGE 1
+    &QS
+      METHOD DFTB
+      &DFTB
+        &PARAMETER
+          PARAM_FILE_PATH DFTB/scc
+          PARAM_FILE_NAME scc_parameter
+        &END PARAMETER
+      &END DFTB
+      EXTRAPOLATION_ORDER 3
+    &END QS
+    &SCF
+      MAX_SCF 200
+      EPS_SCF 1.0E-7
+      SCF_GUESS ATOMIC
+      &MIXING
+      &END
+      &PRINT
+        &RESTART OFF
+        &END RESTART
+      &END PRINT
+    &END SCF
+    &POISSON
+      PERIODIC NONE
+      POISSON_SOLVER ANALYTIC
+    &END POISSON
+  &END DFT
+  &SUBSYS
+    &TOPOLOGY
+      CONN_FILE_FORMAT OFF
+      COORD_FILE_NAME H5O2+-MP2-6311++Gss-10.0A.pdb
+      COORD_FILE_FORMAT PDB
+    &END TOPOLOGY
+    &CELL
+      ABC 10.0 10.0 10.0
+      PERIODIC NONE
+    &END CELL
+  &END SUBSYS
+&END FORCE_EVAL

@@ -1,0 +1,8 @@
+__pycache__/
+.vscode/
+.pytest_cache/
+.pytype/
+.coverage
+htmlcov/
+.ipynb_checkpoints
+*.swp

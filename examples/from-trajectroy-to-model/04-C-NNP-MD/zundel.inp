@@ -1,0 +1,93 @@
+@SET PATH ../03-create-final-model/final-training/model
+
+&GLOBAL
+  PROJECT zundel
+  PRINT_LEVEL LOW
+  RUN_TYPE MD
+&END GLOBAL
+
+&MOTION
+  &MD
+    STEPS 200000
+    TIMESTEP [fs] 0.5
+    ENSEMBLE NVT
+    &THERMOSTAT
+      REGION MASSIVE
+      TYPE CSVR
+      &CSVR
+        TIMECON [fs] 200
+      &END CSVR
+    &END THERMOSTAT
+  &END MD
+  &PRINT
+    &TRAJECTORY
+      &EACH
+        MD 5
+      &END EACH
+    &END TRAJECTORY
+    &VELOCITIES
+      &EACH
+        MD 5
+      &END EACH
+    &END VELOCITIES
+    &FORCES
+      &EACH
+        MD 5
+      &END EACH
+    &END FORCES
+    &RESTART OFF
+    &END RESTART
+    &RESTART_HISTORY OFF
+    &END RESTART_HISTORY
+  &END PRINT
+&END MOTION
+
+&FORCE_EVAL
+  METHOD  NNP
+  &NNP
+    NNP_INPUT_FILE_NAME ${PATH}/nnp-000/input.nn
+    SCALE_FILE_NAME  ${PATH}/nnp-000/scaling.data
+    &MODEL
+      WEIGHTS ${PATH}/nnp-000/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-001/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-002/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-003/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-004/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-005/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-006/weights
+    &END MODEL
+    &MODEL
+      WEIGHTS ${PATH}/nnp-007/weights
+    &END MODEL
+    &PRINT
+      &ENERGIES SILENT
+        &EACH
+          MD 1
+        &END EACH
+      &END ENERGIES
+    &END PRINT
+  &END NNP
+  &SUBSYS
+    &TOPOLOGY
+      CONN_FILE_FORMAT OFF
+      COORD_FILE_NAME H5O2+-MP2-6311++Gss-10.0A.pdb
+      COORD_FILE_FORMAT PDB
+    &END TOPOLOGY
+    &CELL
+      ABC 10.0 10.0 10.0
+      PERIODIC NONE
+    &END CELL
+  &END SUBSYS
+&END FORCE_EVAL
