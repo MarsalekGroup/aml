@@ -1,0 +1,103 @@
+#
+# Radial symmetry functions for H
+#
+
+# H - H
+symfunction_short H 2 H 0.307795 0.264562 12.000000
+symfunction_short H 2 H 0.307795 1.539104 12.000000
+symfunction_short H 2 H 0.307795 2.813645 12.000000
+symfunction_short H 2 H 0.307795 4.088187 12.000000
+symfunction_short H 2 H 0.307795 5.362729 12.000000
+symfunction_short H 2 H 0.307795 6.637271 12.000000
+symfunction_short H 2 H 0.307795 7.911813 12.000000
+symfunction_short H 2 H 0.307795 9.186355 12.000000
+symfunction_short H 2 H 0.307795 10.460896 12.000000
+symfunction_short H 2 H 0.307795 11.735438 12.000000
+
+# H - O
+symfunction_short H 2 O 0.307795 0.264562 12.000000
+symfunction_short H 2 O 0.307795 1.539104 12.000000
+symfunction_short H 2 O 0.307795 2.813645 12.000000
+symfunction_short H 2 O 0.307795 4.088187 12.000000
+symfunction_short H 2 O 0.307795 5.362729 12.000000
+symfunction_short H 2 O 0.307795 6.637271 12.000000
+symfunction_short H 2 O 0.307795 7.911813 12.000000
+symfunction_short H 2 O 0.307795 9.186355 12.000000
+symfunction_short H 2 O 0.307795 10.460896 12.000000
+symfunction_short H 2 O 0.307795 11.735438 12.000000
+
+
+#
+# Radial symmetry functions for O
+#
+
+# O - H
+symfunction_short O 2 H 0.307795 0.264562 12.000000
+symfunction_short O 2 H 0.307795 1.539104 12.000000
+symfunction_short O 2 H 0.307795 2.813645 12.000000
+symfunction_short O 2 H 0.307795 4.088187 12.000000
+symfunction_short O 2 H 0.307795 5.362729 12.000000
+symfunction_short O 2 H 0.307795 6.637271 12.000000
+symfunction_short O 2 H 0.307795 7.911813 12.000000
+symfunction_short O 2 H 0.307795 9.186355 12.000000
+symfunction_short O 2 H 0.307795 10.460896 12.000000
+symfunction_short O 2 H 0.307795 11.735438 12.000000
+
+# O - O
+symfunction_short O 2 O 0.307795 0.264562 12.000000
+symfunction_short O 2 O 0.307795 1.539104 12.000000
+symfunction_short O 2 O 0.307795 2.813645 12.000000
+symfunction_short O 2 O 0.307795 4.088187 12.000000
+symfunction_short O 2 O 0.307795 5.362729 12.000000
+symfunction_short O 2 O 0.307795 6.637271 12.000000
+symfunction_short O 2 O 0.307795 7.911813 12.000000
+symfunction_short O 2 O 0.307795 9.186355 12.000000
+symfunction_short O 2 O 0.307795 10.460896 12.000000
+symfunction_short O 2 O 0.307795 11.735438 12.000000
+
+
+#
+# Angular symmetry functions for H
+#
+
+# H - H-H
+symfunction_short H 3 H H 0.011906 -1.000000 1.000000 12.000000
+symfunction_short H 3 H H 0.011906  1.000000 1.000000 12.000000
+symfunction_short H 3 H H 0.011906 -1.000000 4.000000 12.000000
+symfunction_short H 3 H H 0.011906  1.000000 4.000000 12.000000
+
+# H - H-O
+symfunction_short H 3 H O 0.011906 -1.000000 1.000000 12.000000
+symfunction_short H 3 H O 0.011906  1.000000 1.000000 12.000000
+symfunction_short H 3 H O 0.011906 -1.000000 4.000000 12.000000
+symfunction_short H 3 H O 0.011906  1.000000 4.000000 12.000000
+
+# H - O-O
+symfunction_short H 3 O O 0.011906 -1.000000 1.000000 12.000000
+symfunction_short H 3 O O 0.011906  1.000000 1.000000 12.000000
+symfunction_short H 3 O O 0.011906 -1.000000 4.000000 12.000000
+symfunction_short H 3 O O 0.011906  1.000000 4.000000 12.000000
+
+
+#
+# Angular symmetry functions for O
+#
+
+# O - H-H
+symfunction_short O 3 H H 0.011906 -1.000000 1.000000 12.000000
+symfunction_short O 3 H H 0.011906  1.000000 1.000000 12.000000
+symfunction_short O 3 H H 0.011906 -1.000000 4.000000 12.000000
+symfunction_short O 3 H H 0.011906  1.000000 4.000000 12.000000
+
+# O - H-O
+symfunction_short O 3 H O 0.011906 -1.000000 1.000000 12.000000
+symfunction_short O 3 H O 0.011906  1.000000 1.000000 12.000000
+symfunction_short O 3 H O 0.011906 -1.000000 4.000000 12.000000
+symfunction_short O 3 H O 0.011906  1.000000 4.000000 12.000000
+
+# O - O-O
+symfunction_short O 3 O O 0.011906 -1.000000 1.000000 12.000000
+symfunction_short O 3 O O 0.011906  1.000000 1.000000 12.000000
+symfunction_short O 3 O O 0.011906 -1.000000 4.000000 12.000000
+symfunction_short O 3 O O 0.011906  1.000000 4.000000 12.000000
+

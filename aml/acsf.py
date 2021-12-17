@@ -13,8 +13,8 @@ __all__ = [
     'format_combine_ACSFs',
 ]
 
-from collections import namedtuple
-from typing import List, Tuple, Optional
+from collections import Counter, namedtuple
+from typing import List, Optional, Sequence, Tuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -28,6 +28,11 @@ RadialSF = namedtuple('RadialSF', ['eta', 'mu', 'r_c'])
 
 # parameters of an angular radial ACSF
 AngularSF = namedtuple('AngularSF', ['lam', 'zeta', 'eta', 'r_c', 'mu'])
+
+
+def cmp_same_count(x, y):
+    """Comparison useful for excluding certain ACSFs."""
+    return Counter(x) == Counter(y)
 
 
 #
@@ -77,9 +82,9 @@ def generate_radial_angular_default() -> Tuple[List[RadialSF], List[AngularSF]]:
     """
 
     r_c = 12.0
-    r_0_radial = 0.5 * angstrom
-    r_max_radial = r_c - 0.5 * angstrom
-    r_0_angular = 10.0 * angstrom
+    r_0_radial = 0.14 * angstrom
+    r_max_radial = r_c - 0.14 * angstrom
+    r_0_angular = 2.8 * angstrom
     r_max_angular = r_max_radial
 
     radials = generate_radial_shifted(n=10, r_0=r_0_radial, r_max=r_max_radial, r_c=r_c)
@@ -91,9 +96,9 @@ def generate_radial_angular_default() -> Tuple[List[RadialSF], List[AngularSF]]:
 
 
 def combine_radials_angulars_same(
-    radials_pair: List[RadialSF],
-    angulars_triple: List[AngularSF],
-    elements: List[str]
+    radials_pair: Sequence[RadialSF],
+    angulars_triple: Sequence[AngularSF],
+    elements: Sequence[str]
 ) -> Tuple[dict, dict]:
     """Combine radial and angular ACSFs for a set of elements, each pair/triple the same.
 
@@ -130,7 +135,7 @@ def combine_radials_angulars_same(
 #
 
 
-def format_ACSFs_radial_single(radials: List[RadialSF], element1: str, element2: Optional[str] = None) -> str:
+def format_ACSFs_radial_single(radials: Sequence[RadialSF], element1: str, element2: Optional[str] = None) -> str:
     """Format (possibly weighted) radial ACSFs in input file format (RuNNer/n2p2).
 
     This formats and returns as a string radial ACSFs for a pair of elements (G2)
@@ -163,8 +168,8 @@ def format_ACSFs_radial_single(radials: List[RadialSF], element1: str, element2:
 
 def format_ACSFs_radial(
     radials: dict,
-    elements: List[str],
-    exclude_pairs: List[List[str]] = None,
+    elements: Sequence[str],
+    exclude_pairs: Sequence[Sequence[str]] = tuple(),
 ) -> str:
     """Format all radial ACSFs for a set of elements in input file format (RuNNer/n2p2).
 
@@ -182,11 +187,12 @@ def format_ACSFs_radial(
     for element1 in elements:
         lines.append(f'#\n# Radial symmetry functions for {element1:s}\n#\n')
         for element2 in elements:
-            if (exclude_pairs is not None):
-                if any(set([element1, element2]).issubset(exc) for exc in exclude_pairs):
-                    continue
+            comment = f'# {element1:s} - {element2:s}'
+            if any(cmp_same_count([element1, element2], exc) for exc in exclude_pairs):
+                lines.append(comment + ': excluded')
+                continue
             lines.extend([
-                f'# {element1:s} - {element2:s}',
+                comment,
                 format_ACSFs_radial_single(radials[(element1, element2)], element1, element2),
                 ''])
         lines.append('')
@@ -196,7 +202,7 @@ def format_ACSFs_radial(
 
 
 def format_ACSFs_angular_single(
-    angulars: List[AngularSF],
+    angulars: Sequence[AngularSF],
     element1: str,
     element2: Optional[str] = None,
     element3: Optional[str] = None
@@ -235,8 +241,8 @@ def format_ACSFs_angular_single(
 
 def format_ACSFs_angular(
     angulars: dict,
-    elements: List[str],
-    exclude_triples: List[List[str]] = None
+    elements: Sequence[str],
+    exclude_triples: Sequence[Sequence[str]] = tuple()
 ) -> str:
     """Format all angular ACSFs for a set of elements in input file format (RuNNer/n2p2).
 
@@ -257,11 +263,12 @@ def format_ACSFs_angular(
             for ie3, element3 in enumerate(elements):
                 if ie3 < ie2:
                     continue
-                if (exclude_triples is not None):
-                    if any(set([element1, element2, element3]).issubset(exc) for exc in exclude_triples):
-                        continue
+                comment = f'# {element1:s} - {element2:s}-{element3:s}'
+                if any(cmp_same_count([element1, element2, element3], exc) for exc in exclude_triples):
+                    lines.append(comment + ': excluded')
+                    continue
                 lines.extend([
-                    f'# {element1:s} - {element2:s}-{element3:s}',
+                    comment,
                     format_ACSFs_angular_single(angulars[(element1, element2, element3)], element1, element2, element3),
                     ''])
         lines.append('')
@@ -271,11 +278,11 @@ def format_ACSFs_angular(
 
 
 def format_combine_ACSFs(
-    radials: List[RadialSF],
-    angulars: List[AngularSF],
-    elements: List[str],
-    exclude_pairs: List[List[str]] = None,
-    exclude_triples: List[List[str]] = None
+    radials: Sequence[RadialSF],
+    angulars: Sequence[AngularSF],
+    elements: Sequence[str],
+    exclude_pairs: Sequence[Sequence[str]] = tuple(),
+    exclude_triples: Sequence[Sequence[str]] = tuple()
 ) -> str:
     """Combine radial and angular ACSFs for a set of elements and format them in input file format (RuNNer/n2p2).
 
