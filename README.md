@@ -1,6 +1,8 @@
 AML
 ===
 
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/MarsalekGroup/aml)
+
 Short Description
 -----------------
 
@@ -19,6 +21,7 @@ error in the energy/force prediction, the reference
 set is progressively extended and optimized.
 
 Keywords:
+
 * Active learning
 * Query by committee
 * Ensemble averaging
@@ -27,9 +30,12 @@ Keywords:
 
 More information can be found in the following references:
 
-* "Machine learning potentials for complex aqueous systems made simple", C.Schran, F.L.Thiemann, P.Rowe, E.A.Müller, O.Marsalek, A.Michaelides _(submitted)_
-* "Committee neural network potentials control generalization errors and enable active learning", C.Schran, K.Brezina, O.Marsalek, _J. Chem. Phys._, **153**, 104105 (2020), [10.1063/5.0016004](https://doi.org/10.1063/5.0016004)
-
+* C. Schran, F. L. Thiemann, P. Rowe, E. A. Müller, O. Marsalek, A. Michaelides,  
+  "Machine learning potentials for complex aqueous systems made simple",  
+  _PNAS_ **118**, e2110077118 (2021), [10.1073/pnas.2110077118](https://doi.org/10.1073/pnas.2110077118)
+* C. Schran, K. Brezina, O. Marsalek,  
+  "Committee neural network potentials control generalization errors and enable active learning",  
+  _J. Chem. Phys._ **153**, 104105 (2020), [10.1063/5.0016004](https://doi.org/10.1063/5.0016004)
 
 Installation
 ------------
@@ -37,6 +43,9 @@ Installation
 For now, just clone the repository and source the `env.sh` file.
 
 Dependencies:
-* NumPy
-* SciPy
-* Matplotlib
+
+* [NumPy](https://numpy.org/)
+* [SciPy](https://scipy.org/)
+* [Matplotlib](https://matplotlib.org/)
+* [MDTraj](https://www.mdtraj.org/) (for scoring)
+* [cp2k-input-tools](https://github.com/cp2k/cp2k-input-tools) (for CP2K calculations)
