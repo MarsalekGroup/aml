@@ -188,9 +188,10 @@ def format_ACSFs_radial(
         lines.append(f'#\n# Radial symmetry functions for {element1:s}\n#\n')
         for element2 in elements:
             comment = f'# {element1:s} - {element2:s}'
-            if any(cmp_same_count([element1, element2], exc) for exc in exclude_pairs):
-                lines.append(comment + ': excluded')
-                continue
+            if (exclude_pairs is not None):
+                if any(cmp_same_count([element1, element2], exc) for exc in exclude_pairs):
+                    lines.append(comment + ': excluded')
+                    continue
             lines.extend([
                 comment,
                 format_ACSFs_radial_single(radials[(element1, element2)], element1, element2),
@@ -264,9 +265,10 @@ def format_ACSFs_angular(
                 if ie3 < ie2:
                     continue
                 comment = f'# {element1:s} - {element2:s}-{element3:s}'
-                if any(cmp_same_count([element1, element2, element3], exc) for exc in exclude_triples):
-                    lines.append(comment + ': excluded')
-                    continue
+                if (exclude_triples is not None):
+                    if any(cmp_same_count([element1, element2, element3], exc) for exc in exclude_triples):
+                        lines.append(comment + ': excluded')
+                        continue
                 lines.extend([
                     comment,
                     format_ACSFs_angular_single(angulars[(element1, element2, element3)], element1, element2, element3),
